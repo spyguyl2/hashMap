@@ -20,6 +20,7 @@ class HashMap {
         const primeNumber = 31;
         for (let i = 0; i < key.length; i++) {
           hashCode = primeNumber * hashCode + key.charCodeAt(i);
+          hashCode = hashCode % 16;
         }
       
         return hashCode;
@@ -27,5 +28,5 @@ class HashMap {
 
 }
 let test = new HashMap();
-let testCode = test.hash('Lim');
+let testCode = test.hash('');
 console.log(testCode);
