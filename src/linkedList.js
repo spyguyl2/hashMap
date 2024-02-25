@@ -1,25 +1,3 @@
-/*export default class LinkedList {
-    length = 0;
-    head = null;
-
-    append (value) {
-        let currentNode = this.head;
-        if(!currentNode) currentNode = new Node (value);
-        while (currentNode.nextNode) {
-            currentNode = currentNode.nextNode;                             Old linked list class
-        }
-        currentNode.nextNode = new Node (value);
-    }
-}
-
-class Node {
-    constructor (value = null, nextNode = null) {
-        this.value = value;
-        this.nextNode = nextNode;
-    }
-}
-*/
-
 export const LinkedList = () => {
 
     let head = null;
