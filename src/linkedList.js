@@ -1,4 +1,4 @@
-export const LinkedList = () => {
+export default function LinkedList () {
 
     let head = null;
     let size = 0;
@@ -69,7 +69,6 @@ export const LinkedList = () => {
     }
 
     const contains = (value) => {
-        //if (head.value === value) return true;
         if (hasHead()) {
             let currentNode = head;
             console.log(currentNode.value);
@@ -116,7 +115,7 @@ export const LinkedList = () => {
     return {append, prepend, size, getHead, tail, at, pop, contains, find, toString};
 }
 
-export const createNode = (value = null, nextNode = null) => {
+const createNode = (key = null, value = null, nextNode = null) => {
 
-    return {value, nextNode};
+    return {key, value, nextNode};
 }
