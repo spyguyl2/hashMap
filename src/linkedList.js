@@ -5,20 +5,20 @@ export default function LinkedList () {
 
     const hasHead = () => head === null ? false : true;
 
-    const append = (value) => {
+    const append = (key, value) => {
         if (hasHead()) {
             let currentNode = head;
             while (currentNode.nextNode) {
                 currentNode = currentNode.nextNode;
             }
-            currentNode.nextNode = createNode(value);
+            currentNode.nextNode = createNode(key, value);
         }
-        else head = createNode(value);
+        else head = createNode(key, value);
         size++;
     }
 
-    const prepend = (value) => {
-        head = createNode(value, head);
+    const prepend = (key, value) => {
+        head = createNode(key,value, head);
         size++;
     }
 
@@ -68,16 +68,16 @@ export default function LinkedList () {
             else console.log('This list is already empty!');
     }
 
-    const contains = (value) => {
+    const contains = (key) => {
         if (hasHead()) {
             let currentNode = head;
-            console.log(currentNode.value);
-            if (currentNode.value === value) return true;
+            console.log(currentNode.key);
+            if (currentNode.key === key) return true;
             while (currentNode.nextNode) {
-                if (currentNode.value === value) return true;
+                if (currentNode.key === key) return true;
                 else currentNode = currentNode.nextNode;
             }
-            if (currentNode.value === value) return true;
+            if (currentNode.key === key) return true;
             else return false;
         }
         else return false;
