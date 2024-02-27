@@ -8,6 +8,12 @@ const createHashTable = () => {
   let capacity = 16;
   let loadFactor = .75;
   let buckets = initializeBuckets();
+  
+  function set(key, value) {
+    const index = hash(key);
+    testIndex(index);
+    buckets[index].append(value)
+  }
 
   function hash(key) {
     let hashCode = 0;
@@ -20,12 +26,6 @@ const createHashTable = () => {
  
     return hashCode;
   }
-  
-  function set(key, value) {
-    const index = hash(key);
-    testIndex(index);
-    const bucket = buckets[index];
-  }
 
   function growBuckets() {
     capacity = capacity * 2;
@@ -35,8 +35,7 @@ const createHashTable = () => {
   function initializeBuckets() {
     let buckets = [];
     for (let i  = 0; i < capacity; i++) {
-      let bucket = buckets[i];
-      bucket = newList();
+      buckets.push(newList);
     }
     return buckets;
   }
@@ -48,8 +47,9 @@ const createHashTable = () => {
       throw new Error("Trying to access index out of bound");
     }
   }
-  return {hash, set}
+  return {set, hash}
 }
 
 
 let testTable = createHashTable();
+testTable.set('john', 'smith');
