@@ -1,15 +1,13 @@
 import './style.css';
 import './meyerReset.css';
-import LinkedList from './linkedList';
+import newList from './linkedList';
 
 
 
 const createHashTable = () => {
   let capacity = 16;
   let loadFactor = .75;
-  let buckets = [];
-
-
+  let buckets = initializeBuckets();
 
   function hash(key) {
     let hashCode = 0;
@@ -27,7 +25,20 @@ const createHashTable = () => {
     const index = hash(key);
     testIndex(index);
     const bucket = buckets[index];
-    if (!bucket) bucket = LinkedList;
+  }
+
+  function growBuckets() {
+    capacity = capacity * 2;
+    initializeBuckets();
+  }
+
+  function initializeBuckets() {
+    let buckets = [];
+    for (let i  = 0; i < capacity; i++) {
+      let bucket = buckets[i];
+      bucket = newList();
+    }
+    return buckets;
   }
 
   //TOP self limitation function to prevent accessing an index out of range.
@@ -39,3 +50,6 @@ const createHashTable = () => {
   }
   return {hash, set}
 }
+
+
+let testTable = createHashTable();
