@@ -12,13 +12,16 @@ export default function LinkedList () {
                 currentNode = currentNode.nextNode;
             }
             currentNode.nextNode = createNode(key, value);
+            size++;
         }
-        else head = createNode(key, value);
-        size++;
+        else {
+            head = createNode(key, value);
+            size++;
+        }
     }
 
     const prepend = (key, value) => {
-        head = createNode(key,value, head);
+        head = createNode(key, value, head);
         size++;
     }
 
@@ -26,7 +29,7 @@ export default function LinkedList () {
 
     const getHead = () => {
         if (hasHead()) return head;
-        else console.log('This linked list is empty!');
+        else return false;
     }
 
     const tail = () => {
@@ -71,7 +74,6 @@ export default function LinkedList () {
     const contains = (key) => {
         if (hasHead()) {
             let currentNode = head;
-            console.log(currentNode.key);
             if (currentNode.key === key) return true;
             while (currentNode.nextNode) {
                 if (currentNode.key === key) return true;
@@ -104,7 +106,7 @@ export default function LinkedList () {
             console.log(`Current Size: ${getSize()}`)
             let currentNode = head;
             while(currentNode) {
-                console.log(`${currentNode.value} -> `);
+                console.log(`Key: ${currentNode.key} Value: ${currentNode.value} -> `);
                 currentNode = currentNode.nextNode;
             }
             console.log('null');
@@ -112,7 +114,7 @@ export default function LinkedList () {
         else console.log('This list is empty.');
     }
 
-    return {append, prepend, size, getHead, tail, at, pop, contains, find, toString};
+    return {append, prepend, getSize, getHead, tail, at, pop, contains, find, toString};
 }
 
 const createNode = (key = null, value = null, nextNode = null) => {
