@@ -7,7 +7,7 @@ const createHashTable = () => {
   let capacity = 16;
   let loadFactor = .75;
   let buckets = initializeBuckets();
-  
+
   function set(key, value) {
     const index = hash(key);
     testIndex(index);
@@ -42,11 +42,38 @@ const createHashTable = () => {
   }
 
   function has(key) {
-
+    return get(key) === null ? false : true;
   }
 
   function remove(key) {
+    const index = getIndexFromKey(key);
+    const bucket = buckets[index];
+    const currentNode = bucket.getHead();
+    //if the head is the key and its next node is null. We can just make the head null to remove it.
 
+    //if the next node is the key, we check its nextNode. If that node is null, we're done. Remove it.
+    //else we take a temp copy of THAT nodes nextNode and assign to the first node.nextNode
+    let previousNode = currentNode;
+    let tempNext;
+    while (currentNode.nextNode) {
+      if(previousNode.nextNode === key) {
+        if(currentNode.nextNode !== null) {
+          tempNext = currentNode.nextNode;
+          currentNode.nextNode = null;
+          previousNode.nextNode = tempNext;
+          return true;
+        }
+      }
+      previousNode = currentNode;
+      currentNode = currentNode.nextNode;
+    }
+    return false;
+  }
+  
+
+ 
+  function getIndexFromKey(key) {
+    return testIndex(hash(key));
   }
 
   function length() {
@@ -54,9 +81,7 @@ const createHashTable = () => {
   }
 
   function clear() {
-    buckets.forEach((bucket) => {
-      bucket = null;
-    });
+    
   }
 
   function keys() {
@@ -82,7 +107,7 @@ const createHashTable = () => {
  
     return hashCode;
   }
-
+  //WIP. still need it to copy things over.
   function growBuckets() {
     capacity = capacity * 2;
     initializeBuckets();
@@ -111,17 +136,14 @@ let testTable = createHashTable();
 testTable.set('john', 'smith');
 testTable.set('Migh', 'kawk');
 testTable.set('johbobn', 'shmittyweberjemenmenjensen');
-testTable.set('bob', 'i shouldnt see this');
-testTable.set('bob', 'or this');
-testTable.set('bob', 'oooooor this');
-testTable.set('bob', 'not this one either');
-testTable.set('bob', 'Only this one.');
-
+testTable.set('bob', 'howdy ho, neighbor');
 testTable.clear();
+console.log(testTable.buckets);
+
+
 
 for (let i = 0; i < testTable.buckets.length; i++) {
   const element = testTable.buckets[i];
-  if(element.getSize() > 0) console.log(element.toString());
+  if(element.getSize() > 0) console.log("I'm " + element.toString());
 }
 
-console.log(testTable.get('bob'));
