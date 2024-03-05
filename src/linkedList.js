@@ -85,20 +85,19 @@ export default function LinkedList () {
         else return false;
     }
 
-    const find = (value) => {
+    const find = (key) => {
         if (hasHead()) {
-            if (head.value === value) return 0;
             let index = 0;
             let currentNode = head;
             while (currentNode.nextNode) {
-                if (currentNode.value === value) return index;
+                if (currentNode.key === key) return index;
                 currentNode = currentNode.nextNode;
                 index++;
             }
-            if (currentNode.value === value) return index;
+            if (currentNode.key === key) return index;
             else return null;
         }
-        else console.log('This list is empty!');
+        else return null;
     }
 
     const toString = () => {
@@ -114,7 +113,22 @@ export default function LinkedList () {
         else console.log('This list is empty.');
     }
 
-    return {append, prepend, getSize, getHead, tail, at, pop, contains, find, toString};
+    const removeAt = (index) => {
+        if (hasHead()) {
+            if (head.nextNode === null) return head = null;
+            let previousNode;
+            let currentNode = head;
+            while (currentNode.nextNode) {
+                previousNode = currentNode;
+                currentNode = currentNode.nextNode;
+            }
+            previousNode.nextNode = null;
+            size--;
+        }
+        else console.log('This list is already empty!');
+    }
+
+    return {append, prepend, getSize, getHead, tail, at, pop, contains, find, toString, removeAt};
 }
 
 const createNode = (key = null, value = null, nextNode = null) => {
